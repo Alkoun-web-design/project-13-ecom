@@ -1,8 +1,12 @@
 import {products} from "../lib/products"
+import React from "react"
+import AddToCartButton from "./AddToCartButton"
 
 export default async function Page({params}: { params: Promise<{ productId: number }>}) {
     
     const productId:number = (await params).productId
+
+    // const [quantity, setQuantity] = React.useState(0)
     
     return (
         <div>
@@ -13,6 +17,7 @@ export default async function Page({params}: { params: Promise<{ productId: numb
                 <li>Price: {products[productId].price}</li>
                 <li>Description: {products[productId].description}</li>
             </ul>
+            <AddToCartButton />
         </div>
     )
 }
