@@ -1,13 +1,6 @@
 import {products} from './lib/products'
+import type { Product } from './lib/products'
 import Link from 'next/link'
-
-interface Product {
-    id: string,
-    name: string,
-    description: string,
-    price: number,
-    image: string
-}
 
 export default async function Page() {
     return (

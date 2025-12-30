@@ -5,8 +5,6 @@ import AddToCartButton from "./AddToCartButton";
 export default async function Page({params}: { params: Promise<{ productId: number }>}) {
     
     const productId:number = (await params).productId
-
-    // const [quantity, setQuantity] = React.useState(0)
     
     return (
         <div>

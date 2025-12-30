@@ -1,21 +1,24 @@
 'use client'
 
 import React from "react"
-// import { useShoppingCart } from "@/components/ShoppingCartProvider";
+import type { Product } from "@/app/products/lib/products"
 import { ShoppingCartContext } from "@/components/ShoppingCartProvider";
 
-export default function AddToCartButton({product}: {product: any}) {
+export default function AddToCartButton({product}: {product: Product}) {
 
     const [quantity, setQuantity] = React.useState(1)
 
     const {shoppingCart, setShoppingCart} = React.useContext(ShoppingCartContext);
 
     React.useEffect(() => {
-        console.log(shoppingCart)
-    }, [shoppingCart])
+        console.log(shoppingCart);
+        console.log(`${product.quantity} > ${quantity}`)
+
+    }, [shoppingCart, quantity])
 
     function handleQuantityIncrease() {
-        if (quantity !== 10){
+        
+        if (quantity <= 10 && product.quantity > quantity){
             setQuantity(prev => prev + 1)
         }
     }
@@ -45,12 +48,17 @@ export default function AddToCartButton({product}: {product: any}) {
     return (
         <div>
             <div className="flex flex-row">
-                <button className="bg-gray-700" onClick={handleQuantityIncrease}>More</button>
+                {quantity <= product.quantity ? <button className="bg-gray-700" onClick={handleQuantityIncrease}>More</button> :
+                <button disabled className="bg-gray-700" onClick={handleQuantityIncrease}>More</button> }
                 <p className="w-6 mx-2">{quantity}</p>
                 <button className="bg-gray-700" onClick={handleQuantityDecrease}>Less</button>
             </div>
-            <button onClick={handleAddToCart}>Add to Cart</button>
-            <button onClick={handleRemoveFromCart}>Remove from Cart</button>
+            {product.quantity === 0 ? <p className="text-red-500">Out of Stock</p> : 
+            <>
+                <button onClick={handleAddToCart}>Add to Cart</button>
+                <button onClick={handleRemoveFromCart}>Remove from Cart</button> 
+            </>    
+            }
         </div>
     )
 
