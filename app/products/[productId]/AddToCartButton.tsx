@@ -1,12 +1,18 @@
 'use client'
 
 import React from "react"
-import { useShoppingCart } from "@/components/ShoppingCartProvider";
+// import { useShoppingCart } from "@/components/ShoppingCartProvider";
+import { ShoppingCartContext } from "@/components/ShoppingCartProvider";
+
 export default function AddToCartButton({product}: {product: any}) {
 
-    const [quantity, setQuantity] = React.useState(0)
+    const [quantity, setQuantity] = React.useState(1)
 
-    const shoppingCart = useShoppingCart();
+    const {shoppingCart, setShoppingCart} = React.useContext(ShoppingCartContext);
+
+    React.useEffect(() => {
+        console.log(shoppingCart)
+    }, [shoppingCart])
 
     function handleQuantityIncrease() {
         if (quantity !== 10){
@@ -15,15 +21,25 @@ export default function AddToCartButton({product}: {product: any}) {
     }
 
     function handleQuantityDecrease() {
-        if (quantity !== 0){
+        if (quantity !== 1){
             setQuantity(prev => prev - 1)
         }
     }
     
-    function handleClick () {
+    function handleAddToCart () {
+        const id = product.id;
         const item = product.name;
         const amount = quantity; 
-        console.log(`Added to cart: ${amount}: ${item}`);
+        setShoppingCart({...shoppingCart, [id]: {product: item, quantity: amount}});
+    }
+
+    function handleRemoveFromCart() {
+        const id = product.id;
+        let cart = {...shoppingCart};
+        if (id in cart) {
+            delete cart[id]; 
+            setShoppingCart({...cart});
+        }
     }
 
     return (
@@ -33,7 +49,8 @@ export default function AddToCartButton({product}: {product: any}) {
                 <p className="w-6 mx-2">{quantity}</p>
                 <button className="bg-gray-700" onClick={handleQuantityDecrease}>Less</button>
             </div>
-            <button onClick={handleClick}>Add to Cart</button>
+            <button onClick={handleAddToCart}>Add to Cart</button>
+            <button onClick={handleRemoveFromCart}>Remove from Cart</button>
         </div>
     )
 
