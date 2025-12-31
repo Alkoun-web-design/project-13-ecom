@@ -9,6 +9,7 @@ export default function Header() {
                     <li className="px-2"><Link href={'/products'}>Products</Link></li>
                 </ul>
             </nav>
+            <div className="inline">Cart</div>
         </header>
     )
 }

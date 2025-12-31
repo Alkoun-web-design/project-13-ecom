@@ -16,6 +16,15 @@ import React from 'react';
 
 // export const useShoppingCart = () => React.useContext(ShoppingCartContext);
 
+export type ShoppinCartItem = {
+    id: number,
+    name: string,
+    image: string,
+    unitPrice: number,
+    quantityAdded: number,
+    totalPrice: number
+}
+
 export const ShoppingCartContext = React.createContext({});
 
 export function ShoppingCartProvider({children}: {children: React.ReactNode}) {

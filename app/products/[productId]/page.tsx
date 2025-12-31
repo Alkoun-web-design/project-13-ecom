@@ -1,6 +1,6 @@
 import {products} from "../lib/products"
 import React from "react"
-import AddToCartButton from "./AddToCartButton";;
+import AddToCartButton from "../../../components/AddToCartButton";;
 
 export default async function Page({params}: { params: Promise<{ productId: number }>}) {
 
