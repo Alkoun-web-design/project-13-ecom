@@ -4,31 +4,23 @@ import React from 'react';
 import { ShoppingCartContext } from './ShoppingCartProvider';
 import type { Product } from '@/app/products/lib/products';
 import type { ShoppingCartItem, ShoppingCart } from './ShoppingCartProvider';
+import Link from 'next/link';
 
-let subtotal = 0
 
 export default function ShoppingCart({setIsCartOpen}) {
 
     const { shoppingCart } = React.useContext(ShoppingCartContext);
 
-    React.useEffect(() => {
-        if (shoppingCart) {
-            let cart:ShoppingCartItem[] = Object.values(shoppingCart);
-            subtotal = cart.reduce((acc, item) => acc + item.totalPrice, 0)
-            console.log(subtotal);
-        }
-    }, [shoppingCart])
-
     return (
-        <>  
+        <div>  
             <button onClick={() => setIsCartOpen(false)}>X</button>
             <div>
               <h1>Shopping Cart</h1>
             </div>
             <div>
-                {shoppingCart ?
-                    Object.values(shoppingCart).map((item) => (
-                        <div className="m-4" key={item.id}>
+                {shoppingCart.items ?
+                    Object.values(shoppingCart.items).map((item) => (
+                        <div className="m-4" key={item.name}>
                             <div>{item.name}</div>
                             <div>{item.image}</div>
                             <div>Quanitiy: {item.quantityAdded}</div>
@@ -38,11 +30,14 @@ export default function ShoppingCart({setIsCartOpen}) {
                     ))
                     : <div>No items in cart</div>
                 }
-                {shoppingCart ? 
-                    <div>Gross Total: {subtotal}</div>
+                {shoppingCart.subTotal ? 
+                    <div>
+                        <div>Gross Total: {shoppingCart.subTotal}</div>
+                        <Link href='/checkout'>Proceed to checkout</Link> 
+                    </div>                   
                     : null
                 }
             </div>
-        </>
+        </div>
     )
 }

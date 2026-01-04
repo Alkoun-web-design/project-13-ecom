@@ -2,28 +2,6 @@
 
 import React from 'react';
 
-// const ShoppingCartContext = React.createContext([]);
-
-
-// export function ShoppingCartProvider({children}: {children: React.ReactNode}) {
-    
-//     return (
-//         <ShoppingCartContext value={[]}>
-//             {children}
-//         </ShoppingCartContext>
-//     );
-// }
-
-// export const useShoppingCart = () => React.useContext(ShoppingCartContext);
-
-// export type ShoppingCartItem = {
-//     id: number,
-//     name: string,
-//     image: string,
-//     unitPrice: number,
-//     quantityAdded: number,
-//     totalPrice: number
-// }\
 export type ShoppingCartItem = {
   name: string,
   image: string,
@@ -32,15 +10,27 @@ export type ShoppingCartItem = {
   totalPrice: number
 }
 
+export type ShoppingCartItems = {
+  [id: string]: ShoppingCartItem,
+}
+
 export type ShoppingCart = {
-  [id: string]: ShoppingCartItem | null,
+  items: ShoppingCartItems | {},
+  subTotal: number,
+  deliveryCharges: number,
+  netTotal: number
 }
 
 export const ShoppingCartContext = React.createContext({});
 
 export function ShoppingCartProvider({children}: {children: React.ReactNode}) {
 
-    const [shoppingCart, setShoppingCart] = React.useState<ShoppingCart | null>(null)
+    const [shoppingCart, setShoppingCart] = React.useState<ShoppingCart>({
+      items: {},
+      subTotal: 0,
+      deliveryCharges: 0,
+      netTotal: 0
+    })
     
     return (
         <ShoppingCartContext value={{shoppingCart, setShoppingCart}}>

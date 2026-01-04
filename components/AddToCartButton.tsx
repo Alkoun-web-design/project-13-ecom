@@ -3,7 +3,9 @@
 import React from "react"
 import type { Product } from "@/app/products/lib/products"
 import { ShoppingCartContext } from "@/components/ShoppingCartProvider";
-import type { ShoppingCartItem } from "@/components/ShoppingCartProvider";
+import type { ShoppingCart, ShoppingCartItem } from "@/components/ShoppingCartProvider";
+
+// let newSubTotal = 0
 
 export default function AddToCartButton({product}: {product: Product}) {
 
@@ -13,7 +15,6 @@ export default function AddToCartButton({product}: {product: Product}) {
 
     React.useEffect(() => {
         console.log(shoppingCart);
-
     }, [shoppingCart])
 
     function handleQuantityIncrease() {
@@ -30,47 +31,47 @@ export default function AddToCartButton({product}: {product: Product}) {
     }
     
     function handleAddToCart () {
-        setShoppingCart({...shoppingCart, 
-            [product.id]: {
-                name: product.name, 
-                image: product.image,
-                unitPrice: product.price, 
-                quantityAdded: quantity,
-                totalPrice: product.price * quantity
-            }}
-        );
-
-        // let newCart:ShoppingCartItem[] = []
-        // let newProduct = {
-        //     id: +product.id, 
-        //     name: product.name, 
-        //     image: product.image, 
-        //     unitPrice: product.price, 
-        //     quantityAdded: quantity, 
-        //     totalPrice: product.price * quantity  
-        // };
-        // let existingProduct = shoppingCart.find((item:ShoppingCartItem) => +item.id === +product.id);
-        // console.log(!shoppingCart);
-        // if (shoppingCart !== null && existingProduct === -1) {
-        //     newCart = [...shoppingCart, newProduct];
-        // } else if (shoppingCart !== null && existingProduct !== -1) {
-        //     newCart[existingProduct].quantityAdded = quantity;       
-        // } else {
-        //     newCart = [newProduct];
-        // }
-        // setShoppingCart(newCart);
-    }
+        setShoppingCart((prev:ShoppingCart) => {
+            let updatedShoppingCart = {...prev};
+            let updatedItems = {...prev.items, 
+                [product.id]: {
+                    name: product.name, 
+                    image: product.image,
+                    unitPrice: product.price, 
+                    quantityAdded: quantity,
+                    totalPrice: product.price * quantity
+                }
+            };
+            updatedShoppingCart.items = updatedItems;
+            updatedShoppingCart.subTotal = Object.values(updatedShoppingCart.items).reduce((acc:number, item:ShoppingCartItem) => acc + item.totalPrice, 0);
+            return updatedShoppingCart;
+        })
+    };
 
     function handleRemoveFromCart() {
-        let cart = {...shoppingCart};
-        if (product.id in cart) {
-            delete cart[product.id]; 
-            setShoppingCart({...cart});
-        };
-
-        // let cart = [...shoppingCart];
-        // setShoppingCart(cart.filter(item => item.id === product.id));
-    }
+        // let cart = {...shoppingCart.items};
+        // if (product.id in cart) {
+        //     delete cart[product.id]; 
+        //     setShoppingCart((prev:ShoppingCart) => {
+        //         const updatedShoppingCart = {
+        //             ...prev,
+        //             items:{...cart},
+        //             subTotal: Object.values(prev.items).reduce((acc:number, item:ShoppingCartItem) => acc + item.totalPrice, 0),
+        //         }
+        //         return updatedShoppingCart;
+        //     });
+        // };
+        setShoppingCart((prev: ShoppingCart) => {
+            let updatedShoppingCart = {...prev};
+            let updatedShoppingCartItems = {...prev.items};
+            if (product.id in updatedShoppingCartItems) {
+                delete updatedShoppingCartItems[product.id];
+                updatedShoppingCart.items = updatedShoppingCartItems; 
+                updatedShoppingCart.subTotal = Object.values(updatedShoppingCartItems).reduce((acc, item) => acc + item.totalPrice, 0);
+            }
+            return updatedShoppingCart;
+        })
+    };
 
     return (
         <div>
