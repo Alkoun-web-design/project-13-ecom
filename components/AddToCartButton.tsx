@@ -49,18 +49,6 @@ export default function AddToCartButton({product}: {product: Product}) {
     };
 
     function handleRemoveFromCart() {
-        // let cart = {...shoppingCart.items};
-        // if (product.id in cart) {
-        //     delete cart[product.id]; 
-        //     setShoppingCart((prev:ShoppingCart) => {
-        //         const updatedShoppingCart = {
-        //             ...prev,
-        //             items:{...cart},
-        //             subTotal: Object.values(prev.items).reduce((acc:number, item:ShoppingCartItem) => acc + item.totalPrice, 0),
-        //         }
-        //         return updatedShoppingCart;
-        //     });
-        // };
         setShoppingCart((prev: ShoppingCart) => {
             let updatedShoppingCart = {...prev};
             let updatedShoppingCartItems = {...prev.items};
