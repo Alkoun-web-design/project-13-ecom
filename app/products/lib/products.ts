@@ -1,11 +1,3 @@
-// interface Product {
-//     id: string,
-//     name: string,
-//     description: string,
-//     price: number,
-//     image: string
-// }
-
 export type Product = {
     id: string, 
     name: string, 
@@ -31,5 +23,21 @@ export let products:Product[] = [
         "price": 19.99,
         "image": "https://via.placeholder.com/150",
         "quantity": 5
+    },
+    {
+        "id": "2",
+        "name": "Apple Earpods",
+        "description": "Pristine music and sound.",
+        "price": 8.5,
+        "image": "https://via.placeholder.com/150",
+        "quantity": 0
+    },
+    {
+        "id": "3",
+        "name": "Apple Airtags",
+        "description": "Find anything, anytime.",
+        "price": 10,
+        "image": "https://via.placeholder.com/150",
+        "quantity": 2
     }
 ];

@@ -6,7 +6,9 @@ export default async function Page({params}: { params: Promise<{ productId: numb
 
     const productId:number = (await params).productId
 
-    document.title = `Shopping Website | ${products[productId].name} | ${products[productId].description}`
+    // document.title = 'Shopping Website | ', `${products[productId].name} `, '|', `${products[productId].description}`;
+
+    // document.title = `${products[productId].name}`;
     
     return (
         <div>

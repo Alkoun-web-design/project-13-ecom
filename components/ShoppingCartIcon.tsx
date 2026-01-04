@@ -4,12 +4,12 @@ import ShoppingCart from './ShoppingCart';
 
 export default function ShoppinCartItem() {
     
-    const [open, setOpen] = React.useState(false);
+    const [isCartOpen, setIsCartOpen] = React.useState(false);
     
     return (
-        <div className='inline'>
-            <button onClick={() => setOpen((prev) => !prev)}></button>
-            {open && <ShoppingCart setOpen={setOpen} />}
-        </div>
+        <>
+            <button onClick={() => setIsCartOpen((prev) => !prev)}>Cart</button>
+            {isCartOpen && <ShoppingCart setIsCartOpen={setIsCartOpen} />}
+        </>
     )
 }

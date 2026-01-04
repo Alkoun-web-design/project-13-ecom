@@ -3,6 +3,7 @@
 import React from "react"
 import type { Product } from "@/app/products/lib/products"
 import { ShoppingCartContext } from "@/components/ShoppingCartProvider";
+import type { ShoppingCartItem } from "@/components/ShoppingCartProvider";
 
 export default function AddToCartButton({product}: {product: Product}) {
 
@@ -12,9 +13,8 @@ export default function AddToCartButton({product}: {product: Product}) {
 
     React.useEffect(() => {
         console.log(shoppingCart);
-        console.log(`${product.quantity} > ${quantity}`)
 
-    }, [shoppingCart, quantity])
+    }, [shoppingCart])
 
     function handleQuantityIncrease() {
         
@@ -30,19 +30,46 @@ export default function AddToCartButton({product}: {product: Product}) {
     }
     
     function handleAddToCart () {
-        const id = product.id;
-        const item = product.name;
-        const amount = quantity; 
-        setShoppingCart({...shoppingCart, [id]: {product: item, quantity: amount}});
+        setShoppingCart({...shoppingCart, 
+            [product.id]: {
+                name: product.name, 
+                image: product.image,
+                unitPrice: product.price, 
+                quantityAdded: quantity,
+                totalPrice: product.price * quantity
+            }}
+        );
+
+        // let newCart:ShoppingCartItem[] = []
+        // let newProduct = {
+        //     id: +product.id, 
+        //     name: product.name, 
+        //     image: product.image, 
+        //     unitPrice: product.price, 
+        //     quantityAdded: quantity, 
+        //     totalPrice: product.price * quantity  
+        // };
+        // let existingProduct = shoppingCart.find((item:ShoppingCartItem) => +item.id === +product.id);
+        // console.log(!shoppingCart);
+        // if (shoppingCart !== null && existingProduct === -1) {
+        //     newCart = [...shoppingCart, newProduct];
+        // } else if (shoppingCart !== null && existingProduct !== -1) {
+        //     newCart[existingProduct].quantityAdded = quantity;       
+        // } else {
+        //     newCart = [newProduct];
+        // }
+        // setShoppingCart(newCart);
     }
 
     function handleRemoveFromCart() {
-        const id = product.id;
         let cart = {...shoppingCart};
-        if (id in cart) {
-            delete cart[id]; 
+        if (product.id in cart) {
+            delete cart[product.id]; 
             setShoppingCart({...cart});
-        }
+        };
+
+        // let cart = [...shoppingCart];
+        // setShoppingCart(cart.filter(item => item.id === product.id));
     }
 
     return (

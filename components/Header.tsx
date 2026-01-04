@@ -1,5 +1,5 @@
 import Link from "next/link"
-
+import ShoppingCartIcon from "./ShoppingCartIcon"
 export default function Header() {
     return (
         <header className="py-2 px-4">
@@ -9,7 +9,7 @@ export default function Header() {
                     <li className="px-2"><Link href={'/products'}>Products</Link></li>
                 </ul>
             </nav>
-            <div className="inline">Cart</div>
+            <ShoppingCartIcon />
         </header>
     )
 }
