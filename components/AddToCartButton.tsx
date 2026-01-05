@@ -43,7 +43,7 @@ export default function AddToCartButton({product}: {product: Product}) {
                 }
             };
             updatedShoppingCart.items = updatedItems;
-            updatedShoppingCart.subTotal = Object.values(updatedShoppingCart.items).reduce((acc:number, item:ShoppingCartItem) => acc + item.totalPrice, 0);
+            updatedShoppingCart.subTotal = +Object.values(updatedShoppingCart.items).reduce((acc:number, item:ShoppingCartItem) => acc + item.totalPrice, 0).toFixed(2);
             return updatedShoppingCart;
         })
     };
@@ -55,7 +55,7 @@ export default function AddToCartButton({product}: {product: Product}) {
             if (product.id in updatedShoppingCartItems) {
                 delete updatedShoppingCartItems[product.id];
                 updatedShoppingCart.items = updatedShoppingCartItems; 
-                updatedShoppingCart.subTotal = Object.values(updatedShoppingCartItems).reduce((acc, item) => acc + item.totalPrice, 0);
+                updatedShoppingCart.subTotal = +Object.values(updatedShoppingCartItems).reduce((acc, item) => acc + item.totalPrice, 0).toFixed(2);
             }
             return updatedShoppingCart;
         })
