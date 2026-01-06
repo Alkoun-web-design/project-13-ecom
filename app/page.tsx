@@ -5,6 +5,19 @@ export default function Home() {
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <h1>Landing Page</h1>
+
+        <div>
+          <h2>Most Popular</h2>
+        </div>
+        
+        <div>
+          <h2>New Additions</h2>
+        </div>
+
+        <div>
+          <h2>See all Products</h2>
+        </div>
+
       </main>
     </div>
   );
