@@ -37,9 +37,10 @@ export default function AddToCartButton({product}: {product: Product}) {
                 [product.id]: {
                     name: product.name, 
                     image: product.image,
-                    unitPrice: product.price, 
+                    unitPrice: product.price,
+                    discount: product.discount, 
                     quantityAdded: quantity,
-                    totalPrice: product.price * quantity
+                    totalPrice: product.discount > 0 ? +((product.price - ((product.price * product.discount) / 100))).toFixed(2) * quantity : product.price * quantity
                 }
             };
             updatedShoppingCart.items = updatedItems;

@@ -24,8 +24,11 @@ export default function ShoppingCart({setIsCartOpen}) {
                             <div>{item.name}</div>
                             <div>{item.image}</div>
                             <div>Quanitiy: {item.quantityAdded}</div>
-                            <div>Unit Price: {item.unitPrice}</div>
-                            <div>Total Price: {item.totalPrice}</div>
+                            {item.discount > 0 ? 
+                                <div>Unit Price: <span className='line-through'>{item.unitPrice}</span> {+((item.unitPrice - ((item.unitPrice * item.discount) / 100))).toFixed(2)}</div> 
+                                : <div>Unit Price:  {item.unitPrice}</div>
+                            }
+                            <div>Total Price: {+(item.totalPrice).toFixed(2)}</div>
                         </div>
                     ))
                     : <div>No items in cart</div>

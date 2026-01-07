@@ -6,6 +6,7 @@ export type Product = {
     image: string, 
     quantity: number,
     category: string,
+    discount: number,
     dateAdded: string
 }
 
@@ -17,7 +18,8 @@ export let products:Product[] = [
         "price": 10.99,
         "image": "https://via.placeholder.com/150",
         "quantity": 200,
-        "category": "Smartphones",
+        "category": "smartphones",
+        "discount": 24,
         "dateAdded": "2023-01-01"
     },
     {
@@ -27,7 +29,8 @@ export let products:Product[] = [
         "price": 19.99,
         "image": "https://via.placeholder.com/150",
         "quantity": 5,
-        "category": "Laptops",
+        "category": "laptops",
+        "discount": 0,
         "dateAdded": "2023-01-01"
     },
     {
@@ -37,7 +40,8 @@ export let products:Product[] = [
         "price": 8.5,
         "image": "https://via.placeholder.com/150",
         "quantity": 0,
-        "category": "Earphones",
+        "category": "earphones",
+        "discount": 5,
         "dateAdded": "2023-01-01"
     },
     {
@@ -47,7 +51,8 @@ export let products:Product[] = [
         "price": 10,
         "image": "https://via.placeholder.com/150",
         "quantity": 2,
-        "category": "Accessories",
+        "category": "accessories",
+        "discount": 0,
         "dateAdded": "2023-01-01"
     }
 ];

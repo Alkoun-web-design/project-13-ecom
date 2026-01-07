@@ -7,6 +7,7 @@ export type ShoppingCartItem = {
   image: string,
   unitPrice: number,
   quantityAdded: number,
+  discount: number,
   totalPrice: number
 }
 
