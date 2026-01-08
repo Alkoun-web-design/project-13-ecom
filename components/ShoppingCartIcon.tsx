@@ -7,9 +7,9 @@ export default function ShoppinCartItem() {
     const [isCartOpen, setIsCartOpen] = React.useState(false);
     
     return (
-        <>
+        <div className="inline">
             <button onClick={() => setIsCartOpen((prev) => !prev)}>Cart</button>
             {isCartOpen && <ShoppingCart setIsCartOpen={setIsCartOpen} />}
-        </>
+        </div>
     )
 }
