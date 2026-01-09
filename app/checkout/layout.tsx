@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "@/app/globals.css";
 import {ShoppingCartProvider} from "@/components/ShoppingCartProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -12,19 +12,11 @@ export const metadata: Metadata = {
   description: "An Ecommerce website in Next.js",
 };
 
-export default function RootLayout({children}: Readonly<{children: React.ReactNode;}>) {
+export default function layout({children}: Readonly<{children: React.ReactNode;}>) {
   
   return (
-    
-    <html lang="en">
-      <ThemeProvider>
-        <ShoppingCartProvider>
-          <Header/>
-            {children}
-          <Footer />
-        </ShoppingCartProvider>  
-        <ThemeButton />
-      </ThemeProvider>
-    </html>
+    <>
+    {children}
+    </>
   );
 }
