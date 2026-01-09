@@ -4,6 +4,9 @@ import "./globals.css";
 import {ShoppingCartProvider} from "@/components/ShoppingCartProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ThemeButton from "@/components/ThemeButton";
+import ThemeProvider from "@/components/ThemeProvider";
+import { theme } from '@/components/ThemeProvider';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,15 +31,28 @@ export default function RootLayout({
   return (
     
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-100`}
-      >
-        <ShoppingCartProvider>
-          <Header/>
-            {children}
-          <Footer />
-        </ShoppingCartProvider>  
-      </body>
+      <ThemeProvider>
+        { theme === 'dark' ? (
+          <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-100 bg-gray-900`} >
+            <ShoppingCartProvider>
+              <Header/>
+                {children}
+              <Footer />
+            </ShoppingCartProvider>  
+            <ThemeButton />
+          </body>
+          ) : (
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-900 bg-gray-100`} >
+            <ShoppingCartProvider>
+              <Header/>
+                {children}
+              <Footer />
+            </ShoppingCartProvider>  
+            <ThemeButton />
+          </body>
+          )
+        }
+      </ThemeProvider>
     </html>
   );
 }
