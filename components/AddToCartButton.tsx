@@ -2,7 +2,7 @@
 
 import React from "react"
 import type { Product } from "@/app/products/lib/products"
-import { ShoppingCartContext } from "@/components/ShoppingCartProvider";
+import { useShoppingCart } from "@/components/ShoppingCartProvider";
 import type { ShoppingCart, ShoppingCartItem } from "@/components/ShoppingCartProvider";
 
 // let newSubTotal = 0
@@ -11,14 +11,13 @@ export default function AddToCartButton({product}: {product: Product}) {
 
     const [quantity, setQuantity] = React.useState(1)
 
-    const {shoppingCart, setShoppingCart} = React.useContext(ShoppingCartContext);
+    const {shoppingCart, setShoppingCart} = useShoppingCart();
 
     React.useEffect(() => {
         console.log(shoppingCart);
     }, [shoppingCart])
 
     function handleQuantityIncrease() {
-        
         if (quantity <= 10 && product.quantity > quantity){
             setQuantity(prev => prev + 1)
         }

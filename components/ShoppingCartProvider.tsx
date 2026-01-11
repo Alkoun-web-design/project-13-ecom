@@ -28,11 +28,11 @@ export type ShoppingCart = {
 }
 
 const ShoppingCartContext = React.createContext<ShoppingCartContextType>({
-      items: {},
-      subTotal: 0,
-      deliveryCharges: 0,
-      netTotal: 0
-    });
+  items: {},
+  subTotal: 0,
+  deliveryCharges: 0,
+  netTotal: 0
+});
 
 export function ShoppingCartProvider({children}: {children: React.ReactNode}) {
 
