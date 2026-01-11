@@ -27,12 +27,14 @@ export type ShoppingCart = {
   netTotal: number
 }
 
-const ShoppingCartContext = React.createContext<ShoppingCartContextType>({
-  items: {},
-  subTotal: 0,
-  deliveryCharges: 0,
-  netTotal: 0
-});
+// const ShoppingCartContext = React.createContext<ShoppingCartContextType>({
+//   items: {},
+//   subTotal: 0,
+//   deliveryCharges: 0,
+//   netTotal: 0
+// });
+
+const ShoppingCartContext = React.createContext<ShoppingCartContextType | null>(null);
 
 export function ShoppingCartProvider({children}: {children: React.ReactNode}) {
 
@@ -52,5 +54,9 @@ export function ShoppingCartProvider({children}: {children: React.ReactNode}) {
 
 export function useShoppingCart() {
   const context = React.useContext(ShoppingCartContext);
+  if (!context) {
+    throw new Error("useShoppingCart must be used within a ShoppingCartProvider");
+    
+  }
   return context;
 };
