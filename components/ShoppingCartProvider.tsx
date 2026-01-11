@@ -2,6 +2,11 @@
 
 import React from 'react';
 
+export type ShoppingCartContextType = {
+  shoppingCart: ShoppingCart,
+  setShoppingCart: React.Dispatch<React.SetStateAction<ShoppingCart>>
+}
+
 export type ShoppingCartItem = {
   name: string,
   image: string,
@@ -22,7 +27,12 @@ export type ShoppingCart = {
   netTotal: number
 }
 
-export const ShoppingCartContext = React.createContext({});
+const ShoppingCartContext = React.createContext<ShoppingCartContextType>({
+      items: {},
+      subTotal: 0,
+      deliveryCharges: 0,
+      netTotal: 0
+    });
 
 export function ShoppingCartProvider({children}: {children: React.ReactNode}) {
 
@@ -39,3 +49,8 @@ export function ShoppingCartProvider({children}: {children: React.ReactNode}) {
         </ShoppingCartContext>
     );
 }
+
+export function useShoppingCart() {
+  const context = React.useContext(ShoppingCartContext);
+  return context;
+};

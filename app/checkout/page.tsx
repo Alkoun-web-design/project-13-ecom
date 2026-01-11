@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import { ShoppingCartContext, ShoppingCartItem } from '@/components/ShoppingCartProvider';
+import { useShoppingCart } from '@/components/ShoppingCartProvider';
 import Link from 'next/link';
 import CardForm from '@/components/CardForm';
 
@@ -10,7 +10,7 @@ export default function Page() {
     const [customerDetails, setCustomerDetails] = React.useState<{name: string, email: string, phone: string, address: string}>({name: '', email: '', phone: '', address: ''});
     const [paymentType, setPaymentType] = React.useState<"Cash on Delivery" | "Credit Card" | "CryptoCurrency">("Credit Card");
     // const [cardDetails, setCardDetails] = React.useState<{cardNumber: string, expiryDate: string, cvv: string}>({cardNumber: '', expiryDate: '', cvv: ''});
-    const {shoppingCart} = React.useContext(ShoppingCartContext);
+    const {shoppingCart} = useShoppingCart();
 
     async function handleCustomerDetailsSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();

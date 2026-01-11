@@ -1,15 +1,15 @@
 'use client'
 
 import React from 'react';
-import { ShoppingCartContext } from './ShoppingCartProvider';
+import { useShoppingCart } from './ShoppingCartProvider';
 import type { Product } from '@/app/products/lib/products';
 import type { ShoppingCartItem, ShoppingCart } from './ShoppingCartProvider';
 import Link from 'next/link';
 
 
-export default function ShoppingCart({setIsCartOpen}) {
+export default function ShoppingCart({setIsCartOpen}:{setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>}) {
 
-    const { shoppingCart } = React.useContext(ShoppingCartContext);
+    const { shoppingCart } = useShoppingCart();
 
     return (
         <div>  

@@ -3,7 +3,12 @@
 import React from 'react'
 import { Geist, Geist_Mono } from "next/font/google";
 
-export const ThemeContext = React.createContext('light')
+interface ThemeContextType {
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+}
+
+const ThemeContext = React.createContext<ThemeContextType | null>(null)
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,13 +20,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-
 export default function ThemeProvider({children}:{children: React.ReactNode}) {
 
     const [theme, setTheme] = React.useState<'light' | 'dark'>('light'); 
 
+    function toggleTheme() {
+        setTheme((prev) => prev === 'light' ? 'dark' : 'light')
+    };
+
     return (
-        <ThemeContext value={{theme, setTheme}} >
+        <ThemeContext value={{theme, toggleTheme}} >
             { theme === 'dark' ? (
                 <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-100 bg-gray-900`} >
                     {children}
@@ -33,4 +41,12 @@ export default function ThemeProvider({children}:{children: React.ReactNode}) {
             )}
         </ThemeContext>
     )
+}
+
+export function useTheme() {
+    const context = React.useContext(ThemeContext);
+    if (!context) {
+        throw new Error ("useTheme must be used within a ThemeProvider")
+    }
+    return context;
 }
