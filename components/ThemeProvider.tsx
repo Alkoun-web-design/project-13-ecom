@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { Geist, Geist_Mono } from "next/font/google";
 
 interface ThemeContextType {
   theme: 'light' | 'dark';
@@ -10,19 +9,22 @@ interface ThemeContextType {
 
 const ThemeContext = React.createContext<ThemeContextType | null>(null)
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export default function ThemeProvider({children}:{children: React.ReactNode}) {
 
     const [theme, setTheme] = React.useState<'light' | 'dark'>('light'); 
+    
+    React.useEffect(() => {
+        const root = window.document.documentElement;
+        if (theme === 'dark') {
+            root.classList.remove('light');
+            root.classList.add(theme);
+        } else {
+            root.classList.remove('dark');
+            root.classList.add(theme);
+        }
+    // save theme to local storage
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
     function toggleTheme() {
         setTheme((prev) => prev === 'light' ? 'dark' : 'light')
@@ -30,15 +32,7 @@ export default function ThemeProvider({children}:{children: React.ReactNode}) {
 
     return (
         <ThemeContext value={{theme, toggleTheme}} >
-            { theme === 'dark' ? (
-                <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-100 bg-gray-900`} >
-                    {children}
-                </body>
-            ) : (
-                <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-900 bg-gray-100`} >
-                    {children}
-                </body>
-            )}
+            {children}
         </ThemeContext>
     )
 }
