@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ThemeButton from "@/components/ThemeButton";
 import ThemeProvider from "@/components/ThemeProvider";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Gravitas_One, Questrial } from "next/font/google";
 
 
 export const metadata: Metadata = {
@@ -13,13 +13,15 @@ export const metadata: Metadata = {
   description: "An Ecommerce website in Next.js",
 };
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const questrial = Questrial({
+  variable: "--font-questrial",
+  weight: "400",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const gravitasone = Gravitas_One({
+  variable: "--font-gravitas-one",
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -28,7 +30,7 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
   return (
     
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-900 bg-gray-100 dark:text-gray-100 dark:bg-gray-900`} >
+      <body className={`${gravitasone.variable} antialiased text-gray-900 bg-gray-100 dark:text-gray-100 dark:bg-gray-900`} >
       <ThemeProvider>
         <ShoppingCartProvider>
           <Header/>
