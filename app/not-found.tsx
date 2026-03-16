@@ -1,9 +1,10 @@
 import Link from 'next/link'
+import H1 from '@/components/H1'
  
 export default function NotFound() {
   return (
-    <div>
-      <h2>Not Found</h2>
+    <div className="col-start-2 col-end-12">
+      <H1 heading="Not Found" />
       <p>Could not find requested resource</p>
       <Link href="/">Return Home</Link>
     </div>

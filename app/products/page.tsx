@@ -1,20 +1,21 @@
-import {products} from './lib/products'
-import type { Product } from './lib/products'
-import Link from 'next/link'
+import FilteredProducts from "@/components/FilteredProducts"
+import H1 from "@/components/H1"
+import Link from "next/link"
 
 export default async function Page() {
     return (
-        <div>
-            <h1>All Products</h1>
-            {products.map((product:Product) => (
-                <ul className="m-4" key={product.id}>
-                    <li className="my-1"><Link href={`/products/${product.id}`}>Product ID: {product.id}</Link></li>
-                    <li>Name: {product.name}</li>
-                    <li>Price: {product.price}</li>
-                    <li>Description: {product.description}</li>
-                </ul>
-            ))}
-            
+        <div className="px-6 col-span-full grid grid-cols-subgrid">
+            <div className="col-start-2 col-end-12 mt-20">
+                <Link href="/" className="text-xl text-gray-500 hover:text-gray-900 hover:underline mx-1">Home</Link>
+                <span className="inline-block text-xl mx-1">/</span>
+                <p className="inline-block text-xl  mx-1">All Products</p>
+            </div>
+            <div className="col-span-full justify-self-center mb-10">
+                <H1 heading="All Products" />
+            </div>
+            <div className="grid grid-cols-subgrid col-span-full mb-10">
+                <FilteredProducts />
+            </div>
         </div>
     )
 }
